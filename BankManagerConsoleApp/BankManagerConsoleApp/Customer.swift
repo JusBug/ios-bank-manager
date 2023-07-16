@@ -6,6 +6,6 @@
 //
 
 struct Customer {
-    let numberTicket: Int
-    let bankingTask: BankingTask
+    let ticketNumber: Int
+    let bankTask: BankTask
 }

@@ -24,7 +24,7 @@ class Bank: Manageable {
         self.totalTime = totalTime
     }
     
-    func start() {
+    func open() {
         let group = DispatchGroup()
         giveTicketNumber(numbers: customerNumber)
 
@@ -32,25 +32,26 @@ class Bank: Manageable {
 //            self.operateDepartment(tellerCount: self.tellers.loan, line: self.loanLine, group: group)
 //            self.operateDepartment(tellerCount: self.tellers.deposit, line: self.depositLine, group: group)
 //        }
-        operateDepartment(tellerCount: tellers.deposit, line: depositLine, group: group)
-        operateDepartment(tellerCount: tellers.loan, line: loanLine, group: group)
+        operateWindow(tellerCount: tellers.deposit, line: depositLine, group: group)
+        operateWindow(tellerCount: tellers.loan, line: loanLine, group: group)
         group.wait()
-        closeBank()
+        close()
     }
     
     private func giveTicketNumber(numbers: Int) {
         for number in 1...numbers {
-            let customer = Customer(numberTicket: number, bankingTask: BankingTask.allCases.randomElement() ?? .deposit)
+            let customer = Customer(ticketNumber: number, bankTask: BankTask.allCases.randomElement() ?? .deposit)
             
-            if customer.bankingTask == .deposit {
+            switch customer.bankTask {
+            case .deposit:
                 depositLine.enqueue(customer)
-            } else {
+            case .loan:
                 loanLine.enqueue(customer)
             }
         }
     }
     
-    private func assignCustomer(line: Queue<Customer>) {
+    private func assignCustomerTask(line: Queue<Customer>) {
         var line = line
         
         while !line.isEmpty {
@@ -61,25 +62,25 @@ class Bank: Manageable {
             }
             counter.signal()
             self.processCustomer(customer)
-            totalTime += customer.bankingTask.time
+            totalTime += customer.bankTask.time
         }
     }
     
-    private func operateDepartment(tellerCount: Int, line: Queue<Customer>, group: DispatchGroup) {
+    private func operateWindow(tellerCount: Int, line: Queue<Customer>, group: DispatchGroup) {
         for _ in 1...tellerCount {
             DispatchQueue.global().async(group: group) {
-                self.assignCustomer(line: line)
+                self.assignCustomerTask(line: line)
             }
         }
     }
     
     func processCustomer(_ customer: Customer) {
-        print("\(customer.numberTicket)번 고객 \(customer.bankingTask.title) 업무 시작")
-        Thread.sleep(forTimeInterval: customer.bankingTask.time)
-        print("\(customer.numberTicket)번 고객 \(customer.bankingTask.title) 업무 완료")
+        print("\(customer.ticketNumber)번 고객 \(customer.bankTask.type) 업무 시작")
+        Thread.sleep(forTimeInterval: customer.bankTask.time)
+        print("\(customer.ticketNumber)번 고객 \(customer.bankTask.type) 업무 완료")
     }
     
-    private func closeBank() {
+    private func close() {
         print("업무가 마감되었습니다. 오늘 업무를 처리한 고객은 총 \(customerNumber)명이며, 총 업무시간은 \(String(format: "%.2f", totalTime))초입니다.")
        }
 }

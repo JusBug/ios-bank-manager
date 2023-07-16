@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum BankingTask: CaseIterable {
+enum BankTask: CaseIterable {
     case loan
     case deposit
     
-    var title: String {
+    var type: String {
         switch self {
         case .deposit:
             return "예금"
