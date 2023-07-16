@@ -7,43 +7,76 @@
 
 import Foundation
 
-struct Bank: Manageable {
+class Bank: Manageable {
     var name: String
-    private var tellers: [Teller]
+    var tellers: (loan: Int, deposit: Int)
     private let customerNumber: Int = Int.random(in: 10...30)
-    private var waitingLine = Queue<Customer>()
+    private var depositLine = Queue<Customer>()
+    private var loanLine = Queue<Customer>()
     private var totalTime: Double = 0.0
+    let counter = DispatchSemaphore(value: 1)
     
-    init(name: String, tellers: [Teller]) {
+    init(name: String, tellers: (loan: Int, deposit: Int), depositLine: Queue<Customer> = Queue<Customer>(), loanLine: Queue<Customer> = Queue<Customer>(), totalTime: Double = 0) {
         self.name = name
         self.tellers = tellers
+        self.depositLine = depositLine
+        self.loanLine = loanLine
+        self.totalTime = totalTime
     }
     
-    mutating func start() {
+    func start() {
+        let group = DispatchGroup()
         giveTicketNumber(numbers: customerNumber)
-        assignCustomer()
+
+//        DispatchQueue.global().async(group: group) {
+//            self.operateDepartment(tellerCount: self.tellers.loan, line: self.loanLine, group: group)
+//            self.operateDepartment(tellerCount: self.tellers.deposit, line: self.depositLine, group: group)
+//        }
+        operateDepartment(tellerCount: tellers.deposit, line: depositLine, group: group)
+        operateDepartment(tellerCount: tellers.loan, line: loanLine, group: group)
+        group.wait()
         closeBank()
     }
     
-    mutating private func giveTicketNumber(numbers: Int) {
+    private func giveTicketNumber(numbers: Int) {
         for number in 1...numbers {
-            let customer = Customer(numberTicket: number)
+            let customer = Customer(numberTicket: number, bankingTask: BankingTask.allCases.randomElement() ?? .deposit)
             
-            waitingLine.enqueue(customer)
+            if customer.bankingTask == .deposit {
+                depositLine.enqueue(customer)
+            } else {
+                loanLine.enqueue(customer)
+            }
         }
     }
     
-    mutating private func assignCustomer() {
-        while !waitingLine.isEmpty {
-            for teller in tellers {
-                guard let customer = waitingLine.dequeue() else {
-                    return
-                }
-                
-                teller.processCustomer(customer)
-                totalTime += 0.7
+    private func assignCustomer(line: Queue<Customer>) {
+        var line = line
+        
+        while !line.isEmpty {
+            counter.wait()
+            guard let customer = line.dequeue() else {
+                counter.signal()
+                return
+            }
+            counter.signal()
+            self.processCustomer(customer)
+            totalTime += customer.bankingTask.time
+        }
+    }
+    
+    private func operateDepartment(tellerCount: Int, line: Queue<Customer>, group: DispatchGroup) {
+        for _ in 1...tellerCount {
+            DispatchQueue.global().async(group: group) {
+                self.assignCustomer(line: line)
             }
         }
+    }
+    
+    func processCustomer(_ customer: Customer) {
+        print("\(customer.numberTicket)번 고객 \(customer.bankingTask.title) 업무 시작")
+        Thread.sleep(forTimeInterval: customer.bankingTask.time)
+        print("\(customer.numberTicket)번 고객 \(customer.bankingTask.title) 업무 완료")
     }
     
     private func closeBank() {
