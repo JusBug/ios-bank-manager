@@ -7,7 +7,7 @@
 import Foundation
 
 
-let shinHanBank = Bank(name: "신한은행", tellers: (1,2))
+let kukminBank = Bank(name: "국민은행", tellers: (1,2))
 
-var programManager = ProgramManager(program: shinHanBank)
+var programManager = ProgramManager(program: kukminBank)
 programManager.selectMenu()
