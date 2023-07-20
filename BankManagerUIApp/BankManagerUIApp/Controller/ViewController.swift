@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     let timerLabel = UILabel(text: "업무시간 - 00:00:000", textColor: .black, backgroundColor: .systemBackground)
     let initializationButton = UIButton(title: "초기화", color: .red, action: #selector(stopTimer))
     let addCustomersButton = UIButton(title: "고객 10명 추가", color: .blue, action: #selector(addCustomer))
+    let titleStackView = UIStackView(spacing: 5, alignment: .center, axis: .vertical)
+    let subStackView = UIStackView(spacing: 5, alignment: .center, axis: .horizontal)
 
     func startTimer() {
         if timer == nil {
@@ -53,5 +55,7 @@ class ViewController: UIViewController {
     @objc func addCustomer() {
         
     }
+    
+    
 }
 

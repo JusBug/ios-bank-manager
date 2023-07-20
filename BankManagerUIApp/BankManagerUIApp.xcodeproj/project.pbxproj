@@ -25,6 +25,7 @@
 		D06DF2232A5E40DD0074F9EF /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06DF2222A5E40DD0074F9EF /* Queue.swift */; };
 		D06DF2252A5E40ED0074F9EF /* Queuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06DF2242A5E40ED0074F9EF /* Queuable.swift */; };
 		D06DF2642A691F790074F9EF /* Manageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06DF2632A691F790074F9EF /* Manageable.swift */; };
+		D06DF2682A6930090074F9EF /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06DF2672A6930090074F9EF /* UIStackView+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		D06DF2222A5E40DD0074F9EF /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		D06DF2242A5E40ED0074F9EF /* Queuable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queuable.swift; sourceTree = "<group>"; };
 		D06DF2632A691F790074F9EF /* Manageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manageable.swift; sourceTree = "<group>"; };
+		D06DF2672A6930090074F9EF /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			children = (
 				921050A72A67D43E007DD39F /* UILabel+.swift */,
 				921050A92A67DBC6007DD39F /* UIButton+.swift */,
+				D06DF2672A6930090074F9EF /* UIStackView+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				921050AA2A67DBC6007DD39F /* UIButton+.swift in Sources */,
 				D06DF2642A691F790074F9EF /* Manageable.swift in Sources */,
 				C7694E3B259C3E9F0053667F /* AppDelegate.swift in Sources */,
+				D06DF2682A6930090074F9EF /* UIStackView+.swift in Sources */,
 				D06DF2252A5E40ED0074F9EF /* Queuable.swift in Sources */,
 				921050A12A67BA04007DD39F /* Bank.swift in Sources */,
 				C7694E3D259C3E9F0053667F /* SceneDelegate.swift in Sources */,
