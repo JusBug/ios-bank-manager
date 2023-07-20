@@ -7,10 +7,3 @@
 
 import UIKit
 
-extension UILabel {
-    convenience init(text: String, textColor: UIColor) {
-        self.init(frame: .zero)
-        self.text = text
-        self.textColor = textColor
-    }
-}
