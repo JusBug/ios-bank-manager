@@ -13,6 +13,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    let waitingLineLabel = UILabel(text: "대기중", textColor: .white, backgroundColor: .green)
+    let workingLineLabel = UILabel(text: "업무중", textColor: .white, backgroundColor: .systemBlue)
+    let timerLabel = UILabel(text: "업무시간 - ", textColor: .black, backgroundColor: .systemBackground)
 
 }
 
