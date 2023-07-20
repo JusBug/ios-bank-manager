@@ -52,7 +52,6 @@ class ViewController: UIViewController {
         return button2
     }()
     
-    
     func startTimer() {
         if timer == nil {
             startTime = Date()
@@ -91,7 +90,7 @@ class ViewController: UIViewController {
     }()
     
     let waitingTitle: UILabel = {
-        let label = UILabel(frame: CGRect(x: 50, y: 50, width: 100, height: 100))
+        let label = UILabel()
         
         label.text = "대기중"
         label.textColor = .white
@@ -103,7 +102,7 @@ class ViewController: UIViewController {
     }()
     
     let workingTitle: UILabel = {
-        let label = UILabel(frame: CGRect(x: 30, y: 30, width: 50, height: 30))
+        let label = UILabel())
         
         label.text = "업무중"
         label.textColor = .white
@@ -129,9 +128,5 @@ class ViewController: UIViewController {
         self.stackView.addArrangedSubview(workingTitle)
         self.view.addSubview(stackView)
         
-        NSLayoutConstraint.activate([
-                stackView.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant: 20),
-                stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-            ])
     }
 }
