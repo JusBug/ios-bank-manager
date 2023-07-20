@@ -8,11 +8,11 @@ import XCTest
 @testable import BankManagerUIApp
 
 class BankManagerUIAppTests: XCTestCase {
-    var sut: LinkedListQueue<Int>!
+    var sut: Queue<Int>!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = LinkedListQueue()
+        sut = Queue()
     }
 
     override func tearDownWithError() throws {
@@ -25,9 +25,9 @@ class BankManagerUIAppTests: XCTestCase {
         let expectation = 3
         
         // when
-        sut.enqueue(value: 1)
-        sut.enqueue(value: 2)
-        sut.enqueue(value: 3)
+        sut.enqueue(1)
+        sut.enqueue(2)
+        sut.enqueue(3)
         
         // then
         XCTAssertEqual(sut.count, expectation)
@@ -35,8 +35,8 @@ class BankManagerUIAppTests: XCTestCase {
     
     func test_dequeue_1과2를_넣고_dequeue를_호출하면_값이_1인지() {
         //given
-        sut.enqueue(value: 1)
-        sut.enqueue(value: 2)
+        sut.enqueue(1)
+        sut.enqueue(2)
         
         //when
         let result = sut.dequeue()
@@ -47,8 +47,8 @@ class BankManagerUIAppTests: XCTestCase {
     
     func test_clear_1과2를_넣고_clear를_호출하면_isEmpty가_True인지() {
         //given
-        sut.enqueue(value: 1)
-        sut.enqueue(value: 2)
+        sut.enqueue(1)
+        sut.enqueue(2)
         
         //when
         sut.clear()
@@ -60,8 +60,8 @@ class BankManagerUIAppTests: XCTestCase {
     
     func test_peek_2와3을_넣고_peek를_호출하면_값이_2인지() {
         //given
-        sut.enqueue(value: 2)
-        sut.enqueue(value: 3)
+        sut.enqueue(2)
+        sut.enqueue(3)
         
         //when
         let result = sut.peek()

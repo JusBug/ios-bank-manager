@@ -17,9 +17,10 @@ class ViewController: UIViewController {
 
     let waitingLineLabel = UILabel(text: "대기중", textColor: .white, backgroundColor: .green)
     let workingLineLabel = UILabel(text: "업무중", textColor: .white, backgroundColor: .systemBlue)
-    let timerLabel = UILabel(text: "업무시간 - ", textColor: .black, backgroundColor: .systemBackground)
+    let timerLabel = UILabel(text: "업무시간 - 00:00:000", textColor: .black, backgroundColor: .systemBackground)
+    let initializationButton = UIButton(title: "초기화", color: .red, action: #selector(stopTimer))
+    let addCustomersButton = UIButton(title: "고객 10명 추가", color: .blue, action: #selector(addCustomer))
 
-    
     func startTimer() {
         if timer == nil {
             startTime = Date()
@@ -47,6 +48,10 @@ class ViewController: UIViewController {
         let milsec = Int((time.truncatingRemainder(dividingBy: 1)) * 1000)
         let formattedTimer = String(format: "%02d:%02d:%03d", min, sec, milsec)
         timerLabel.text = "업무시간 - \(formattedTimer)"
+    }
+    
+    @objc func addCustomer() {
+        
     }
 }
 
