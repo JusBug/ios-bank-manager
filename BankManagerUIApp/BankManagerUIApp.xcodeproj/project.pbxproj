@@ -112,8 +112,8 @@
 			children = (
 				D06DF2632A691F790074F9EF /* Manageable.swift */,
 				921050A02A67BA04007DD39F /* Bank.swift */,
-				921050A42A67BA5C007DD39F /* BankTask.swift */,
 				921050A22A67BA49007DD39F /* Customer.swift */,
+				921050A42A67BA5C007DD39F /* BankTask.swift */,
 			);
 			path = Bank;
 			sourceTree = "<group>";

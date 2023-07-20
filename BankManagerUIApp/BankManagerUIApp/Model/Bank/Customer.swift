@@ -9,11 +9,5 @@ import Foundation
 
 struct Customer {
     let numberTicket: Int
-    var bankTask: BankTask {
-        guard let bankTask = BankTask.allCases.randomElement() else {
-            return .deposit
-        }
-
-        return bankTask
-    }
+    let bankTask: BankTask
 }
