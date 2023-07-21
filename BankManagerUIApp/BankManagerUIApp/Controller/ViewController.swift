@@ -19,9 +19,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    let waitingLineLabel = UILabel(text: "대기중", textColor: .white, backgroundColor: .green, alignment: .center)
-    let workingLineLabel = UILabel(text: "업무중", textColor: .white, backgroundColor: .systemBlue, alignment: .center)
-    let timerLabel = UILabel(text: "업무시간 - 00:00:000", textColor: .black, backgroundColor: .systemBackground, alignment: .center)
+    let waitingLineLabel = UILabel(text: "대기중", textColor: .white, backgroundColor: .systemGreen, font: .preferredFont(forTextStyle: .title1))
+    let workingLineLabel = UILabel(text: "업무중", textColor: .white, backgroundColor: .systemBlue, font: .preferredFont(forTextStyle: .title1))
+    let timerLabel = UILabel(text: "업무시간 - 00:00:000", textColor: .black, backgroundColor: .systemBackground, font: .preferredFont(forTextStyle: .title2))
     
     let initializationButton = UIButton(title: "초기화", color: .red, action: #selector(stopTimer))
     let addCustomersButton = UIButton(title: "고객 10명 추가", color: .blue, action: #selector(addCustomer))
@@ -38,6 +38,7 @@ class ViewController: UIViewController {
     let waitingLineScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .blue
         
         return scrollView
     }()
@@ -45,6 +46,7 @@ class ViewController: UIViewController {
     let workingLineScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .magenta
         
         return scrollView
     }()
@@ -101,7 +103,7 @@ class ViewController: UIViewController {
         fullStackView.addArrangedSubview(timerLabel)
         
         NSLayoutConstraint.activate([
-            buttonStackView.heightAnchor.constraint(equalToConstant: 100)
+            buttonStackView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -111,7 +113,7 @@ class ViewController: UIViewController {
         fullStackView.addArrangedSubview(lineStackView)
         
         NSLayoutConstraint.activate([
-            lineStackView.heightAnchor.constraint(equalToConstant: 70),
+            lineStackView.heightAnchor.constraint(equalToConstant: 50),
             lineStackView.leadingAnchor.constraint(equalTo: fullStackView.leadingAnchor),
             lineStackView.trailingAnchor.constraint(equalTo: fullStackView.trailingAnchor)
         ])
@@ -125,7 +127,16 @@ class ViewController: UIViewController {
         fullStackView.addArrangedSubview(lineScrollStackView)
         
         NSLayoutConstraint.activate([
-
+            lineScrollStackView.topAnchor.constraint(equalTo: lineStackView.bottomAnchor),
+            lineScrollStackView.bottomAnchor.constraint(equalTo: fullStackView.bottomAnchor),
+            lineScrollStackView.widthAnchor.constraint(equalTo: fullStackView.widthAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            waitingLineScrollView.leadingAnchor.constraint(equalTo: waitingLineLabel.leadingAnchor),
+            waitingLineScrollView.trailingAnchor.constraint(equalTo: waitingLineLabel.trailingAnchor),
+            workingLineScrollView.leadingAnchor.constraint(equalTo: workingLineLabel.leadingAnchor),
+            workingLineScrollView.trailingAnchor.constraint(equalTo: workingLineLabel.trailingAnchor)
         ])
     }
     
