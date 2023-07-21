@@ -38,6 +38,10 @@ class ViewController: UIViewController {
     let workingLineScrollView = UIScrollView(backgroundColor: .magenta)
     
     
+    //testLabel
+    let test1 = UILabel(text: "test1", textColor: .blue, backgroundColor: .white)
+    let test2 = UILabel(text: "test2", textColor: .magenta, backgroundColor: .white)
+    
     @objc func addCustomer() {
         
     }
@@ -57,6 +61,9 @@ class ViewController: UIViewController {
         lineScrollStackView.addArrangedSubview(waitingLineScrollView)
         lineScrollStackView.addArrangedSubview(workingLineScrollView)
         
+        waitingLineStackView.addArrangedSubview(test1)
+        workingLineStackView.addArrangedSubview(test2)
+        
         fullStackView.addArrangedSubview(buttonStackView)
         fullStackView.addArrangedSubview(timerLabel)
         fullStackView.addArrangedSubview(lineStackView)
@@ -65,7 +72,6 @@ class ViewController: UIViewController {
     
     func configureViews() {
         configureFullStackView()
-        configureButtonStackView()
         configureLineTitleStackView()
         configureLineScrollView()
     }
@@ -80,12 +86,6 @@ class ViewController: UIViewController {
         ])
     }
     
-    func configureButtonStackView() {
-
-        NSLayoutConstraint.activate([
-            buttonStackView.heightAnchor.constraint(equalToConstant: 50)
-        ])
-    }
 
     func configureLineTitleStackView() {
         NSLayoutConstraint.activate([
@@ -96,7 +96,6 @@ class ViewController: UIViewController {
     }
 
     func configureLineScrollView() {
-
         NSLayoutConstraint.activate([
             lineScrollStackView.topAnchor.constraint(equalTo: lineStackView.bottomAnchor),
             lineScrollStackView.bottomAnchor.constraint(equalTo: fullStackView.bottomAnchor),
@@ -106,8 +105,28 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             waitingLineScrollView.leadingAnchor.constraint(equalTo: waitingLineLabel.leadingAnchor),
             waitingLineScrollView.trailingAnchor.constraint(equalTo: waitingLineLabel.trailingAnchor),
+            waitingLineScrollView.topAnchor.constraint(equalTo: lineScrollStackView.topAnchor),
+            waitingLineScrollView.bottomAnchor.constraint(equalTo: lineScrollStackView.bottomAnchor)
+        ])
+        NSLayoutConstraint.activate([
             workingLineScrollView.leadingAnchor.constraint(equalTo: workingLineLabel.leadingAnchor),
-            workingLineScrollView.trailingAnchor.constraint(equalTo: workingLineLabel.trailingAnchor)
+            workingLineScrollView.trailingAnchor.constraint(equalTo: workingLineLabel.trailingAnchor),
+            workingLineScrollView.topAnchor.constraint(equalTo: lineScrollStackView.topAnchor),
+            workingLineScrollView.bottomAnchor.constraint(equalTo: lineScrollStackView.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            waitingLineStackView.leadingAnchor.constraint(equalTo: waitingLineScrollView.leadingAnchor),
+            waitingLineStackView.topAnchor.constraint(equalTo: waitingLineScrollView.topAnchor),
+            waitingLineStackView.trailingAnchor.constraint(equalTo: waitingLineScrollView.trailingAnchor),
+            waitingLineStackView.bottomAnchor.constraint(equalTo: waitingLineScrollView.bottomAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            workingLineStackView.leadingAnchor.constraint(equalTo: workingLineScrollView.leadingAnchor),
+            workingLineStackView.topAnchor.constraint(equalTo: workingLineScrollView.topAnchor),
+            workingLineStackView.trailingAnchor.constraint(equalTo: workingLineScrollView.trailingAnchor),
+            workingLineStackView.bottomAnchor.constraint(equalTo: workingLineScrollView.bottomAnchor)
         ])
     }
 //
