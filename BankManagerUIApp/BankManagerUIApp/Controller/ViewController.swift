@@ -6,12 +6,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, BankDelegate {
+    var bank = Bank(name: "mint", tellers: [.deposit: 2, .loan: 1])
     var timer: Timer?
     var startTime: Date?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        bank.bankDelegate = self
         addViews()
         configureViews()
     }
@@ -22,15 +24,15 @@ class ViewController: UIViewController {
     let timerLabel = UILabel(text: "업무시간 - 00:00:000", textColor: .black, backgroundColor: .systemBackground, font: .preferredFont(forTextStyle: .title2))
     
     //Buttons
-    let initializationButton = UIButton(title: "초기화", color: .red, action: #selector(stopTimer))
-    let addCustomersButton = UIButton(title: "고객 10명 추가", color: .blue, action: #selector(addCustomer))
+    let initializationButton = UIButton(title: "초기화", color: .red, target: self, action: #selector(stopTimer))
+    let addCustomersButton = UIButton(title: "고객 10명 추가", color: .blue, target: self, action: #selector(tappedAddCustomerButton))
     
     //StackViews
     let fullStackView = UIStackView(backgroundColor: .brown)
     let buttonStackView = UIStackView(backgroundColor: .blue, spacing: 100, axis: .horizontal)
     let lineStackView = UIStackView(backgroundColor: .purple, alignment: .fill , axis: .horizontal, distribution: .fillEqually)
     let lineScrollStackView = UIStackView(backgroundColor: .black, alignment: .fill, axis: .horizontal)
-    let waitingLineStackView = UIStackView(backgroundColor: .red)
+    let waitingLineStackView = UIStackView(backgroundColor: .red, distribution: .fill)
     let workingLineStackView = UIStackView(backgroundColor: .orange)
     
     //ScrollViews
@@ -42,10 +44,23 @@ class ViewController: UIViewController {
     let test1 = UILabel(text: "test1", textColor: .blue, backgroundColor: .white)
     let test2 = UILabel(text: "test2", textColor: .magenta, backgroundColor: .white)
     
-    @objc func addCustomer() {
-        
+    @objc func tappedAddCustomerButton() {
+        bank.giveTicketNumber()
     }
     
+    func addCustomer(_ customer: Customer) {
+        DispatchQueue.main.async {
+            let customerLabel = UILabel(text: "\(customer.numberTicket) - \(customer.bankTask.type)", textColor: customer.bankTask.color, backgroundColor: .white)
+            self.waitingLineStackView.addArrangedSubview(customerLabel)
+        }
+    }
+    
+    func moveCustomerLine() {
+        
+    }
+}
+
+extension ViewController {
     func addViews() {
         view.addSubview(fullStackView)
         view.backgroundColor = .systemBackground
@@ -77,7 +92,6 @@ class ViewController: UIViewController {
     }
     
     func configureFullStackView() {
-        
         NSLayoutConstraint.activate([
             fullStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             fullStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -116,20 +130,23 @@ class ViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            waitingLineStackView.leadingAnchor.constraint(equalTo: waitingLineScrollView.leadingAnchor),
-            waitingLineStackView.topAnchor.constraint(equalTo: waitingLineScrollView.topAnchor),
-            waitingLineStackView.trailingAnchor.constraint(equalTo: waitingLineScrollView.trailingAnchor),
-            waitingLineStackView.bottomAnchor.constraint(equalTo: waitingLineScrollView.bottomAnchor)
+            waitingLineStackView.leadingAnchor.constraint(equalTo: waitingLineScrollView.contentLayoutGuide.leadingAnchor),
+            waitingLineStackView.topAnchor.constraint(equalTo: waitingLineScrollView.contentLayoutGuide.topAnchor),
+            waitingLineStackView.trailingAnchor.constraint(equalTo: waitingLineScrollView.contentLayoutGuide.trailingAnchor),
+            waitingLineStackView.bottomAnchor.constraint(equalTo: waitingLineScrollView.contentLayoutGuide.bottomAnchor),
+            waitingLineStackView.heightAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.heightAnchor),
+            waitingLineStackView.widthAnchor.constraint(equalTo: waitingLineScrollView.frameLayoutGuide.widthAnchor)
         ])
 
         NSLayoutConstraint.activate([
-            workingLineStackView.leadingAnchor.constraint(equalTo: workingLineScrollView.leadingAnchor),
-            workingLineStackView.topAnchor.constraint(equalTo: workingLineScrollView.topAnchor),
-            workingLineStackView.trailingAnchor.constraint(equalTo: workingLineScrollView.trailingAnchor),
-            workingLineStackView.bottomAnchor.constraint(equalTo: workingLineScrollView.bottomAnchor)
+            workingLineStackView.leadingAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.leadingAnchor),
+            workingLineStackView.topAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.topAnchor),
+            workingLineStackView.trailingAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.trailingAnchor),
+            workingLineStackView.bottomAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.bottomAnchor),
+            workingLineStackView.heightAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.heightAnchor),
+            workingLineStackView.widthAnchor.constraint(equalTo: workingLineScrollView.frameLayoutGuide.widthAnchor)
         ])
     }
-//
 }
 
 extension ViewController {

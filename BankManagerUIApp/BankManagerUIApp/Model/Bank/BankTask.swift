@@ -5,7 +5,7 @@
 //  Created by minsong kim on 2023/07/19.
 //
 
-import Foundation
+import UIKit
 
 enum BankTask: CaseIterable {
     case loan
@@ -26,6 +26,15 @@ enum BankTask: CaseIterable {
             return 0.7
         case .loan:
             return 1.1
+        }
+    }
+    
+    var color: UIColor {
+        switch self {
+        case .deposit:
+            return .black
+        case .loan:
+            return .purple
         }
     }
 }

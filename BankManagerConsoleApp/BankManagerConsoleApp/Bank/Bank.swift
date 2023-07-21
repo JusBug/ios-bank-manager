@@ -7,13 +7,18 @@
 
 import Foundation
 
+protocol BankDelegate {
+    func addCustomer(_ customer: Customer)
+}
+
 final class Bank: Manageable {
     let name: String
     let group: DispatchGroup = DispatchGroup()
     private var tellers: [BankTask: Int]
-    private var line: [BankTask: Queue<Customer>] = [.deposit: Queue<Customer>(), .loan: Queue<Customer>()]
-    private let customerNumber: Int = Int.random(in: 10...30)
+    var line: [BankTask: Queue<Customer>] = [.deposit: Queue<Customer>(), .loan: Queue<Customer>()]
+    private var customerNumber: Int = 1
     private var totalTime: Double = 0.0
+    var bankDelegate: BankDelegate?
 
     init(name: String, tellers: [BankTask: Int]) {
         self.name = name
@@ -21,12 +26,8 @@ final class Bank: Manageable {
     }
     
     func open() {
-        giveTicketNumber(numbers: customerNumber)
         operateWindow(task: .deposit)
         operateWindow(task: .loan)
-        group.notify(queue: .global()) {
-            self.close()
-        }
     }
     
     private func randomTask() -> BankTask {
@@ -37,12 +38,14 @@ final class Bank: Manageable {
         return task
     }
     
-    private func giveTicketNumber(numbers: Int) {
-        for number in 1...numbers {
+    func giveTicketNumber() {
+        for number in customerNumber..<(customerNumber + 10) {
             let customer = Customer(numberTicket: number, bankTask: randomTask())
+            self.bankDelegate?.addCustomer(customer)
             
             line[customer.bankTask]?.enqueue(customer)
         }
+        customerNumber += 10
     }
     
     private func operateWindow(task: BankTask) {
