@@ -12,11 +12,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureFullStackView()
-        configureButtonStackView()
-        configureLineTitleStackView()
-        configureLineScrollView()
-        // Do any additional setup after loading the view.
+        addViews()
+        configureViews()
     }
     
     //Labels
@@ -45,9 +42,35 @@ class ViewController: UIViewController {
         
     }
     
-    func configureFullStackView() {
+    func addViews() {
         view.addSubview(fullStackView)
         view.backgroundColor = .systemBackground
+        
+        buttonStackView.addArrangedSubview(addCustomersButton)
+        buttonStackView.addArrangedSubview(initializationButton)
+        
+        lineStackView.addArrangedSubview(waitingLineLabel)
+        lineStackView.addArrangedSubview(workingLineLabel)
+        
+        waitingLineScrollView.addSubview(waitingLineStackView)
+        workingLineScrollView.addSubview(workingLineStackView)
+        lineScrollStackView.addArrangedSubview(waitingLineScrollView)
+        lineScrollStackView.addArrangedSubview(workingLineScrollView)
+        
+        fullStackView.addArrangedSubview(buttonStackView)
+        fullStackView.addArrangedSubview(timerLabel)
+        fullStackView.addArrangedSubview(lineStackView)
+        fullStackView.addArrangedSubview(lineScrollStackView)
+    }
+    
+    func configureViews() {
+        configureFullStackView()
+        configureButtonStackView()
+        configureLineTitleStackView()
+        configureLineScrollView()
+    }
+    
+    func configureFullStackView() {
         
         NSLayoutConstraint.activate([
             fullStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -58,41 +81,28 @@ class ViewController: UIViewController {
     }
     
     func configureButtonStackView() {
-        buttonStackView.addArrangedSubview(addCustomersButton)
-        buttonStackView.addArrangedSubview(initializationButton)
-        fullStackView.addArrangedSubview(buttonStackView)
-        fullStackView.addArrangedSubview(timerLabel)
-        
+
         NSLayoutConstraint.activate([
             buttonStackView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
+
     func configureLineTitleStackView() {
-        lineStackView.addArrangedSubview(waitingLineLabel)
-        lineStackView.addArrangedSubview(workingLineLabel)
-        fullStackView.addArrangedSubview(lineStackView)
-        
         NSLayoutConstraint.activate([
             lineStackView.heightAnchor.constraint(equalToConstant: 50),
             lineStackView.leadingAnchor.constraint(equalTo: fullStackView.leadingAnchor),
             lineStackView.trailingAnchor.constraint(equalTo: fullStackView.trailingAnchor)
         ])
     }
-    
+
     func configureLineScrollView() {
-        waitingLineScrollView.addSubview(waitingLineStackView)
-        workingLineScrollView.addSubview(workingLineStackView)
-        lineScrollStackView.addArrangedSubview(waitingLineScrollView)
-        lineScrollStackView.addArrangedSubview(workingLineScrollView)
-        fullStackView.addArrangedSubview(lineScrollStackView)
-        
+
         NSLayoutConstraint.activate([
             lineScrollStackView.topAnchor.constraint(equalTo: lineStackView.bottomAnchor),
             lineScrollStackView.bottomAnchor.constraint(equalTo: fullStackView.bottomAnchor),
             lineScrollStackView.widthAnchor.constraint(equalTo: fullStackView.widthAnchor)
         ])
-        
+
         NSLayoutConstraint.activate([
             waitingLineScrollView.leadingAnchor.constraint(equalTo: waitingLineLabel.leadingAnchor),
             waitingLineScrollView.trailingAnchor.constraint(equalTo: waitingLineLabel.trailingAnchor),
@@ -100,7 +110,7 @@ class ViewController: UIViewController {
             workingLineScrollView.trailingAnchor.constraint(equalTo: workingLineLabel.trailingAnchor)
         ])
     }
-    
+//
 }
 
 extension ViewController {
