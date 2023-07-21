@@ -86,7 +86,6 @@
 ### 📐 Diagram
 <p align="center">
 <img width="800" src= "https://hackmd.io/_uploads/Skv_piw52.png" >
-
 </br>
 
 ## 💻 실행 화면
@@ -274,4 +273,4 @@ func selectMenu() {
 </br>
 
 ## 👥 팀 회고
-- [팀 회고 링크](https://github.com/iOS-Yetti/ios-exposition-universelle/wiki)
+- [팀 회고 링크](https://github.com/JusBug/ios-bank-manager/wiki)
