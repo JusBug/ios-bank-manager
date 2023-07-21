@@ -14,6 +14,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         configureFullStackView()
         configureButtonStackView()
+        configureLineStackView()
         // Do any additional setup after loading the view.
     }
 
@@ -22,8 +23,9 @@ class ViewController: UIViewController {
     let timerLabel = UILabel(text: "업무시간 - 00:00:000", textColor: .black, backgroundColor: .systemBackground)
     let initializationButton = UIButton(title: "초기화", color: .red, action: #selector(stopTimer))
     let addCustomersButton = UIButton(title: "고객 10명 추가", color: .blue, action: #selector(addCustomer))
-    let fullStackView = UIStackView(spacing: 5, alignment: .center, backgroundColor: .brown ,axis: .vertical)
-    let buttonStackView = UIStackView(spacing: 5, alignment: .center, backgroundColor: .blue ,axis: .horizontal)
+    let fullStackView = UIStackView(spacing: 0, alignment: .center, backgroundColor: .brown ,axis: .vertical)
+    let buttonStackView = UIStackView(spacing: 0, alignment: .center, backgroundColor: .blue ,axis: .horizontal)
+    let lineStackView = UIStackView(spacing: 0, alignment: .center, backgroundColor: .purple, axis: .horizontal)
 
     func startTimer() {
         if timer == nil {
@@ -77,7 +79,17 @@ class ViewController: UIViewController {
         fullStackView.addArrangedSubview(timerLabel)
         
         NSLayoutConstraint.activate([
-            buttonStackView.heightAnchor.constraint(equalToConstant: 100),
+            buttonStackView.heightAnchor.constraint(equalToConstant: 100)
+        ])
+    }
+    
+    func configureLineStackView() {
+        lineStackView.addArrangedSubview(waitingLineLabel)
+        lineStackView.addArrangedSubview(workingLineLabel)
+        fullStackView.addArrangedSubview(lineStackView)
+        
+        NSLayoutConstraint.activate([
+            lineStackView.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
 }
