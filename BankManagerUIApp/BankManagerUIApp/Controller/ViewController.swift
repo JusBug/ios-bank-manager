@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureFullStackView()
         // Do any additional setup after loading the view.
     }
 
@@ -20,8 +21,8 @@ class ViewController: UIViewController {
     let timerLabel = UILabel(text: "업무시간 - 00:00:000", textColor: .black, backgroundColor: .systemBackground)
     let initializationButton = UIButton(title: "초기화", color: .red, action: #selector(stopTimer))
     let addCustomersButton = UIButton(title: "고객 10명 추가", color: .blue, action: #selector(addCustomer))
-    let titleStackView = UIStackView(spacing: 5, alignment: .center, axis: .vertical)
-    let subStackView = UIStackView(spacing: 5, alignment: .center, axis: .horizontal)
+    let fullStackView = UIStackView(spacing: 5, alignment: .center, backgroundColor: .brown ,axis: .vertical)
+    let subStackView = UIStackView(spacing: 5, alignment: .center, backgroundColor: .blue ,axis: .horizontal)
 
     func startTimer() {
         if timer == nil {
@@ -56,6 +57,16 @@ class ViewController: UIViewController {
         
     }
     
-    
+    func configureFullStackView() {
+        view.addSubview(fullStackView)
+        view.backgroundColor = .systemBackground
+        
+        NSLayoutConstraint.activate([
+            fullStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            fullStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            fullStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            fullStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
 }
 
