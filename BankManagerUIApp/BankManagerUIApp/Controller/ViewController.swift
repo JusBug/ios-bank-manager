@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureFullStackView()
+        configureButtonStackView()
         // Do any additional setup after loading the view.
     }
 
@@ -22,7 +23,7 @@ class ViewController: UIViewController {
     let initializationButton = UIButton(title: "초기화", color: .red, action: #selector(stopTimer))
     let addCustomersButton = UIButton(title: "고객 10명 추가", color: .blue, action: #selector(addCustomer))
     let fullStackView = UIStackView(spacing: 5, alignment: .center, backgroundColor: .brown ,axis: .vertical)
-    let subStackView = UIStackView(spacing: 5, alignment: .center, backgroundColor: .blue ,axis: .horizontal)
+    let buttonStackView = UIStackView(spacing: 5, alignment: .center, backgroundColor: .blue ,axis: .horizontal)
 
     func startTimer() {
         if timer == nil {
@@ -66,6 +67,17 @@ class ViewController: UIViewController {
             fullStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             fullStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             fullStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    func configureButtonStackView() {
+        buttonStackView.addArrangedSubview(addCustomersButton)
+        buttonStackView.addArrangedSubview(initializationButton)
+        fullStackView.addArrangedSubview(buttonStackView)
+        fullStackView.addArrangedSubview(timerLabel)
+        
+        NSLayoutConstraint.activate([
+            buttonStackView.heightAnchor.constraint(equalToConstant: 100),
         ])
     }
 }
