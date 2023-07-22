@@ -23,9 +23,9 @@ enum BankTask: CaseIterable {
     var time: Double {
         switch self {
         case .deposit:
-            return 0.7
+            return 3
         case .loan:
-            return 1.1
+            return 4
         }
     }
     

@@ -9,15 +9,15 @@ import Foundation
 
 protocol Manageable {
     var name: String { get }
-    var group: DispatchGroup { get }
+    var group: [BankTask: DispatchGroup] { get }
     
     func open()
 }
 
-extension Manageable {
-    func sortNext(to: @escaping () -> Void) {
-        group.notify(queue: .global()) {
-            to()
-        }
-    }
-}
+//extension Manageable {
+//    func sortNext(to: @escaping () -> Void) {
+//        group.notify(queue: .global()) {
+//            to()
+//        }
+//    }
+//}

@@ -9,11 +9,13 @@ import Foundation
 
 protocol BankDelegate {
     func addCustomer(_ customer: Customer)
+    func moveToWorkingLine(customer: Customer)
+    func removeWorkingLineCustomer(customer: Customer)
 }
 
 final class Bank: Manageable {
     let name: String
-    let group: DispatchGroup = DispatchGroup()
+    let group: [BankTask: DispatchGroup] = [.deposit: DispatchGroup(), .loan: DispatchGroup()]
     private var tellers: [BankTask: Int]
     var line: [BankTask: Queue<Customer>] = [.deposit: Queue<Customer>(), .loan: Queue<Customer>()]
     private var customerNumber: Int = 1
@@ -26,8 +28,18 @@ final class Bank: Manageable {
     }
     
     func open() {
-        operateWindow(task: .deposit)
-        operateWindow(task: .loan)
+        guard let depositGroup = group[.deposit],
+                let loanGroup = group[.loan] else {
+            return
+        }
+        
+        depositGroup.notify(queue: .global()) {
+            self.operateWindow(task: .deposit)
+        }
+        
+        loanGroup.notify(queue: .global()) {
+            self.operateWindow(task: .loan)
+        }
     }
     
     private func randomTask() -> BankTask {
@@ -46,11 +58,13 @@ final class Bank: Manageable {
             line[customer.bankTask]?.enqueue(customer)
         }
         customerNumber += 10
+        open()
     }
     
     private func operateWindow(task: BankTask) {
         guard let tellerCount = tellers[task],
-              let line = line[task] else {
+              let line = line[task],
+              let group = group[task] else {
             return
         }
         
@@ -73,14 +87,13 @@ final class Bank: Manageable {
             }
             counter.signal()
             processCustomer(customer)
-            totalTime += customer.bankTask.time
         }
     }
     
     private func processCustomer(_ customer: Customer) {
-        print("\(customer.numberTicket)번 고객 \(customer.bankTask.type)업무 시작")
+        bankDelegate?.moveToWorkingLine(customer: customer)
         Thread.sleep(forTimeInterval: customer.bankTask.time)
-        print("\(customer.numberTicket)번 고객 \(customer.bankTask.type)업무 완료")
+        bankDelegate?.removeWorkingLineCustomer(customer: customer)
     }
     
     private func close() {

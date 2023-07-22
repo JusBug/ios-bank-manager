@@ -7,6 +7,7 @@
 import UIKit
 
 class ViewController: UIViewController, BankDelegate {
+    
     var bank = Bank(name: "mint", tellers: [.deposit: 2, .loan: 1])
     var timer: Timer?
     var startTime: Date?
@@ -51,12 +52,30 @@ class ViewController: UIViewController, BankDelegate {
     func addCustomer(_ customer: Customer) {
         DispatchQueue.main.async {
             let customerLabel = UILabel(text: "\(customer.numberTicket) - \(customer.bankTask.type)", textColor: customer.bankTask.color, backgroundColor: .white)
+            customerLabel.tag = customer.numberTicket
             self.waitingLineStackView.addArrangedSubview(customerLabel)
         }
     }
     
-    func moveCustomerLine() {
-        
+    func moveToWorkingLine(customer: Customer) {
+        DispatchQueue.main.async {
+            for subview in self.waitingLineStackView.arrangedSubviews {
+                if subview.tag == customer.numberTicket {
+                    subview.removeFromSuperview()
+                    self.workingLineStackView.addArrangedSubview(subview)
+                }
+            }
+        }
+    }
+    
+    func removeWorkingLineCustomer(customer: Customer) {
+        DispatchQueue.main.async {
+            for subview in self.workingLineStackView.arrangedSubviews {
+                if subview.tag == customer.numberTicket {
+                    subview.removeFromSuperview()
+                }
+            }
+        }
     }
 }
 
@@ -118,15 +137,15 @@ extension ViewController {
 
         NSLayoutConstraint.activate([
             waitingLineScrollView.leadingAnchor.constraint(equalTo: waitingLineLabel.leadingAnchor),
-            waitingLineScrollView.trailingAnchor.constraint(equalTo: waitingLineLabel.trailingAnchor),
-            waitingLineScrollView.topAnchor.constraint(equalTo: lineScrollStackView.topAnchor),
-            waitingLineScrollView.bottomAnchor.constraint(equalTo: lineScrollStackView.bottomAnchor)
+            waitingLineScrollView.trailingAnchor.constraint(equalTo: waitingLineLabel.trailingAnchor)
+//            waitingLineScrollView.topAnchor.constraint(equalTo: lineScrollStackView.topAnchor),
+//            waitingLineScrollView.bottomAnchor.constraint(equalTo: lineScrollStackView.bottomAnchor)
         ])
         NSLayoutConstraint.activate([
             workingLineScrollView.leadingAnchor.constraint(equalTo: workingLineLabel.leadingAnchor),
-            workingLineScrollView.trailingAnchor.constraint(equalTo: workingLineLabel.trailingAnchor),
-            workingLineScrollView.topAnchor.constraint(equalTo: lineScrollStackView.topAnchor),
-            workingLineScrollView.bottomAnchor.constraint(equalTo: lineScrollStackView.bottomAnchor)
+            workingLineScrollView.trailingAnchor.constraint(equalTo: workingLineLabel.trailingAnchor)
+//            workingLineScrollView.topAnchor.constraint(equalTo: lineScrollStackView.topAnchor),
+//            workingLineScrollView.bottomAnchor.constraint(equalTo: lineScrollStackView.bottomAnchor)
         ])
         
         NSLayoutConstraint.activate([
