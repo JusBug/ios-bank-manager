@@ -61,6 +61,14 @@ final class Bank: Manageable {
         open()
     }
     
+    func clearWaitingLine() {
+        if !line.isEmpty {
+            for Task in BankTask.allCases {
+                line[Task]?.clear()
+            }
+        }
+    }
+    
     private func operateWindow(task: BankTask) {
         guard let tellerCount = tellers[task],
               let line = line[task],
