@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIScrollView {
-    convenience init(backgroundColor: UIColor, constant: Bool = false) {
+    convenience init(backgroundColor: UIColor = .systemBackground, constant: Bool = false) {
         self.init(frame: .zero)
         self.backgroundColor = backgroundColor
         self.translatesAutoresizingMaskIntoConstraints = constant

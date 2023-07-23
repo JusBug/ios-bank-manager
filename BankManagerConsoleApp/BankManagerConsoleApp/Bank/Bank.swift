@@ -11,6 +11,7 @@ protocol BankDelegate {
     func addCustomer(_ customer: Customer)
     func moveToWorkingLine(customer: Customer)
     func removeWorkingLineCustomer(customer: Customer)
+    func checkBusinessHours()
 }
 
 final class Bank: Manageable {
@@ -102,6 +103,7 @@ final class Bank: Manageable {
         bankDelegate?.moveToWorkingLine(customer: customer)
         Thread.sleep(forTimeInterval: customer.bankTask.time)
         bankDelegate?.removeWorkingLineCustomer(customer: customer)
+        bankDelegate?.checkBusinessHours()
     }
     
     private func close() {

@@ -7,7 +7,6 @@
 import UIKit
 
 class ViewController: UIViewController, BankDelegate {
-    
     var bank = Bank(name: "mint", tellers: [.deposit: 2, .loan: 1])
     var timer: Timer?
     var startTime: Date?
@@ -26,25 +25,20 @@ class ViewController: UIViewController, BankDelegate {
     let timerLabel = UILabel(text: "업무시간 - 00:00:000", textColor: .black, backgroundColor: .systemBackground, font: .preferredFont(forTextStyle: .title2))
     
     //Buttons
-    let initializationButton = UIButton(title: "초기화", color: .red, target: self, action: #selector(pause))
+    let initializationButton = UIButton(title: "초기화", color: .red, target: self, action: #selector(stop))
     let addCustomersButton = UIButton(title: "고객 10명 추가", color: .blue, target: self, action: #selector(tappedAddCustomerButton))
     
     //StackViews
-    let fullStackView = UIStackView(backgroundColor: .brown)
-    let buttonStackView = UIStackView(backgroundColor: .blue, spacing: 100, axis: .horizontal)
-    let lineStackView = UIStackView(backgroundColor: .purple, alignment: .fill , axis: .horizontal, distribution: .fillEqually)
-    let lineScrollStackView = UIStackView(backgroundColor: .black, alignment: .fill, axis: .horizontal)
-    let waitingLineStackView = UIStackView(backgroundColor: .red, distribution: .fill)
-    let workingLineStackView = UIStackView(backgroundColor: .orange)
+    let fullStackView = UIStackView(backgroundColor: .systemBackground)
+    let buttonStackView = UIStackView(spacing: 100, axis: .horizontal)
+    let lineStackView = UIStackView(alignment: .fill , axis: .horizontal, distribution: .fillEqually)
+    let lineScrollStackView = UIStackView(alignment: .fill, axis: .horizontal)
+    let waitingLineStackView = UIStackView(distribution: .fill)
+    let workingLineStackView = UIStackView(distribution: .fill)
     
     //ScrollViews
-    let waitingLineScrollView = UIScrollView(backgroundColor: .blue)
-    let workingLineScrollView = UIScrollView(backgroundColor: .magenta)
-    
-    
-    //testLabel
-    let test1 = UILabel(text: "test1", textColor: .blue, backgroundColor: .white)
-    let test2 = UILabel(text: "test2", textColor: .magenta, backgroundColor: .white)
+    let waitingLineScrollView = UIScrollView(backgroundColor: .systemBackground)
+    let workingLineScrollView = UIScrollView(backgroundColor: .systemBackground)
     
     @objc func tappedAddCustomerButton() {
         bank.giveTicketNumber()
@@ -80,6 +74,14 @@ class ViewController: UIViewController, BankDelegate {
         }
     }
     
+    func checkBusinessHours() {
+        DispatchQueue.main.async {
+            if self.workingLineStackView.subviews.isEmpty && self.waitingLineStackView.subviews.isEmpty {
+                self.pause()
+            }
+        }
+    }
+    
     func removeWaitingLineCustomer() {
         bank.clearWaitingLine()
         for subview in self.waitingLineStackView.arrangedSubviews {
@@ -103,9 +105,6 @@ extension ViewController {
         workingLineScrollView.addSubview(workingLineStackView)
         lineScrollStackView.addArrangedSubview(waitingLineScrollView)
         lineScrollStackView.addArrangedSubview(workingLineScrollView)
-        
-        waitingLineStackView.addArrangedSubview(test1)
-        workingLineStackView.addArrangedSubview(test2)
         
         fullStackView.addArrangedSubview(buttonStackView)
         fullStackView.addArrangedSubview(timerLabel)
@@ -160,7 +159,7 @@ extension ViewController {
             waitingLineStackView.topAnchor.constraint(equalTo: waitingLineScrollView.contentLayoutGuide.topAnchor),
             waitingLineStackView.trailingAnchor.constraint(equalTo: waitingLineScrollView.frameLayoutGuide.trailingAnchor),
             waitingLineStackView.bottomAnchor.constraint(equalTo: waitingLineScrollView.contentLayoutGuide.bottomAnchor),
-            waitingLineStackView.heightAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.heightAnchor),
+            waitingLineStackView.heightAnchor.constraint(equalTo: waitingLineScrollView.contentLayoutGuide.heightAnchor),
             waitingLineStackView.widthAnchor.constraint(equalTo: waitingLineScrollView.frameLayoutGuide.widthAnchor)
         ])
 
