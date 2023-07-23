@@ -27,6 +27,7 @@
 		D06DF2642A691F790074F9EF /* Manageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06DF2632A691F790074F9EF /* Manageable.swift */; };
 		D06DF2682A6930090074F9EF /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06DF2672A6930090074F9EF /* UIStackView+.swift */; };
 		D06DF26A2A6A2BDB0074F9EF /* UIScrollView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06DF2692A6A2BDB0074F9EF /* UIScrollView+.swift */; };
+		D06DF26F2A6D078C0074F9EF /* WorkTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06DF26E2A6D078C0074F9EF /* WorkTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		D06DF2632A691F790074F9EF /* Manageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Manageable.swift; sourceTree = "<group>"; };
 		D06DF2672A6930090074F9EF /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		D06DF2692A6A2BDB0074F9EF /* UIScrollView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+.swift"; sourceTree = "<group>"; };
+		D06DF26E2A6D078C0074F9EF /* WorkTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				921050A02A67BA04007DD39F /* Bank.swift */,
 				921050A22A67BA49007DD39F /* Customer.swift */,
 				921050A42A67BA5C007DD39F /* BankTask.swift */,
+				D06DF26E2A6D078C0074F9EF /* WorkTimer.swift */,
 			);
 			path = Bank;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 			files = (
 				C7694E3F259C3E9F0053667F /* ViewController.swift in Sources */,
 				D06DF26A2A6A2BDB0074F9EF /* UIScrollView+.swift in Sources */,
+				D06DF26F2A6D078C0074F9EF /* WorkTimer.swift in Sources */,
 				921050A32A67BA49007DD39F /* Customer.swift in Sources */,
 				D06DF2232A5E40DD0074F9EF /* Queue.swift in Sources */,
 				921050A52A67BA5C007DD39F /* BankTask.swift in Sources */,
