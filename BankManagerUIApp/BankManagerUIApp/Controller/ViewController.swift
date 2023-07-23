@@ -47,6 +47,7 @@ class ViewController: UIViewController, BankDelegate {
     
     @objc func tappedAddCustomerButton() {
         bank.giveTicketNumber()
+        self.startTimer()
     }
     
     func addCustomer(_ customer: Customer) {
@@ -76,6 +77,11 @@ class ViewController: UIViewController, BankDelegate {
                 }
             }
         }
+    }
+    
+    func removeWaitingLineCustomer() {
+        bank.clearWaitingLine()
+        waitingLineStackView.removeFromSuperview()
     }
 }
 

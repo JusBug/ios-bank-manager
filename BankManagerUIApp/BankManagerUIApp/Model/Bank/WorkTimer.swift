@@ -16,6 +16,7 @@ extension ViewController {
     }
     
     @objc func stopTimer() {
+        removeWaitingLineCustomer()
         timer?.invalidate()
         timer = nil
         timerLabel.text = "업무시간 - 00:00:000"
