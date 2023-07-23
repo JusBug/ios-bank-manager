@@ -82,7 +82,9 @@ class ViewController: UIViewController, BankDelegate {
     
     func removeWaitingLineCustomer() {
         bank.clearWaitingLine()
-        waitingLineStackView.removeFromSuperview()
+        for subview in self.waitingLineStackView.arrangedSubviews {
+            subview.removeFromSuperview()
+        }
     }
 }
 
