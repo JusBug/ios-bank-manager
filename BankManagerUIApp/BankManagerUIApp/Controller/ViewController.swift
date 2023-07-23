@@ -11,6 +11,7 @@ class ViewController: UIViewController, BankDelegate {
     var bank = Bank(name: "mint", tellers: [.deposit: 2, .loan: 1])
     var timer: Timer?
     var startTime: Date?
+    var accumualtedTime: TimeInterval = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()

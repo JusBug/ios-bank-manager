@@ -15,6 +15,10 @@ extension ViewController {
         }
     }
     
+    @objc func pause() {
+        timer?.invalidate()
+    }
+    
     @objc func stopTimer() {
         removeWaitingLineCustomer()
         timer?.invalidate()
