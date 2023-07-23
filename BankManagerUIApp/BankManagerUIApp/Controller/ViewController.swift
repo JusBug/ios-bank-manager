@@ -138,29 +138,27 @@ extension ViewController {
         NSLayoutConstraint.activate([
             waitingLineScrollView.leadingAnchor.constraint(equalTo: waitingLineLabel.leadingAnchor),
             waitingLineScrollView.trailingAnchor.constraint(equalTo: waitingLineLabel.trailingAnchor)
-//            waitingLineScrollView.topAnchor.constraint(equalTo: lineScrollStackView.topAnchor),
-//            waitingLineScrollView.bottomAnchor.constraint(equalTo: lineScrollStackView.bottomAnchor)
+
         ])
         NSLayoutConstraint.activate([
             workingLineScrollView.leadingAnchor.constraint(equalTo: workingLineLabel.leadingAnchor),
             workingLineScrollView.trailingAnchor.constraint(equalTo: workingLineLabel.trailingAnchor)
-//            workingLineScrollView.topAnchor.constraint(equalTo: lineScrollStackView.topAnchor),
-//            workingLineScrollView.bottomAnchor.constraint(equalTo: lineScrollStackView.bottomAnchor)
+
         ])
         
         NSLayoutConstraint.activate([
-            waitingLineStackView.leadingAnchor.constraint(equalTo: waitingLineScrollView.contentLayoutGuide.leadingAnchor),
+            waitingLineStackView.leadingAnchor.constraint(equalTo: waitingLineScrollView.frameLayoutGuide.leadingAnchor),
             waitingLineStackView.topAnchor.constraint(equalTo: waitingLineScrollView.contentLayoutGuide.topAnchor),
-            waitingLineStackView.trailingAnchor.constraint(equalTo: waitingLineScrollView.contentLayoutGuide.trailingAnchor),
+            waitingLineStackView.trailingAnchor.constraint(equalTo: waitingLineScrollView.frameLayoutGuide.trailingAnchor),
             waitingLineStackView.bottomAnchor.constraint(equalTo: waitingLineScrollView.contentLayoutGuide.bottomAnchor),
             waitingLineStackView.heightAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.heightAnchor),
             waitingLineStackView.widthAnchor.constraint(equalTo: waitingLineScrollView.frameLayoutGuide.widthAnchor)
         ])
 
         NSLayoutConstraint.activate([
-            workingLineStackView.leadingAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.leadingAnchor),
+            workingLineStackView.leadingAnchor.constraint(equalTo: workingLineScrollView.frameLayoutGuide.leadingAnchor),
             workingLineStackView.topAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.topAnchor),
-            workingLineStackView.trailingAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.trailingAnchor),
+            workingLineStackView.trailingAnchor.constraint(equalTo: workingLineScrollView.frameLayoutGuide.trailingAnchor),
             workingLineStackView.bottomAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.bottomAnchor),
             workingLineStackView.heightAnchor.constraint(equalTo: workingLineScrollView.contentLayoutGuide.heightAnchor),
             workingLineStackView.widthAnchor.constraint(equalTo: workingLineScrollView.frameLayoutGuide.widthAnchor)
