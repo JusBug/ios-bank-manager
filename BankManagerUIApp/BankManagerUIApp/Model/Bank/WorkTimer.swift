@@ -11,30 +11,39 @@ extension ViewController {
     func startTimer() {
         if timer == nil {
             startTime = Date()
-            timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(updateAccumulatedTime), userInfo: nil, repeats: true)
+        }
+    }
+    
+    func resume() {
+        if timer == nil {
+            startTime = Date().addingTimeInterval(-accumualtedTime)
+            timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(updateAccumulatedTime), userInfo: nil, repeats: true)
         }
     }
     
     @objc func pause() {
         timer?.invalidate()
+        timer = nil
     }
     
-    @objc func stopTimer() {
+    @objc func stop() {
         removeWaitingLineCustomer()
         pause()
-        timer = nil
+        accumualtedTime = 0.0
         timerLabel.text = "업무시간 - 00:00:000"
+        updateTimerLabel(time: accumualtedTime)
     }
     
-    @objc func fireTimer() {
+    @objc func updateAccumulatedTime() {
         guard let startTime = self.startTime else { return }
         
         let currentTime = Date().timeIntervalSince(startTime)
+        accumualtedTime = currentTime
         updateTimerLabel(time: currentTime)
     }
     
     func updateTimerLabel(time: TimeInterval) {
-        startTimer()
         let min = Int(time / 60)
         let sec = Int(time) % 60
         let milsec = Int((time.truncatingRemainder(dividingBy: 1)) * 1000)

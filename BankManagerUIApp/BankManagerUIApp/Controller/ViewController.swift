@@ -26,7 +26,7 @@ class ViewController: UIViewController, BankDelegate {
     let timerLabel = UILabel(text: "업무시간 - 00:00:000", textColor: .black, backgroundColor: .systemBackground, font: .preferredFont(forTextStyle: .title2))
     
     //Buttons
-    let initializationButton = UIButton(title: "초기화", color: .red, target: self, action: #selector(stopTimer))
+    let initializationButton = UIButton(title: "초기화", color: .red, target: self, action: #selector(pause))
     let addCustomersButton = UIButton(title: "고객 10명 추가", color: .blue, target: self, action: #selector(tappedAddCustomerButton))
     
     //StackViews
@@ -48,7 +48,7 @@ class ViewController: UIViewController, BankDelegate {
     
     @objc func tappedAddCustomerButton() {
         bank.giveTicketNumber()
-        self.startTimer()
+        self.resume()
     }
     
     func addCustomer(_ customer: Customer) {
